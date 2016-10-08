@@ -23,6 +23,7 @@ import hudson.tasks.Maven.MavenInstallation;
 import java.io.File;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
@@ -169,9 +170,11 @@ public class MavenMultiModuleTest {
         MavenModuleSet m = j.jenkins.createProject(MavenModuleSet.class, "p");
         m.setRootPOM("parent/pom.xml");
         m.getReporters().add(new TestReporter());
-        m.setScm(new ExtractResourceWithChangesSCM2(getClass().getResource("maven-multimod-rel-base.zip"),
-						   getClass().getResource("maven-multimod-changes.zip")));
-        
+        m.setScm(new FolderResourceSCM("src/test/projects/maven-multimod-rel-base-with-changes") //
+                     .addChangelog(Arrays.asList("moduleB/src/main/java/test/AppB.java") ));
+
+
+
         j.buildAndAssertSuccess(m);
         
         // Now run a second build with the changes.

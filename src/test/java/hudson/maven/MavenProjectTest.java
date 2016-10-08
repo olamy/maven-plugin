@@ -76,7 +76,7 @@ public class MavenProjectTest extends AbstractMavenTestCase {
     }
 
     private MavenModuleSet createSimpleProject() throws Exception {
-        return createProject( "/src/test/projects/simple-projects" );
+        return createProject( "src/test/projects/simple-projects" );
     }
 
     private MavenModuleSet createProject(final String scmResourceFolder) throws Exception {
